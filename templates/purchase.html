@@ -1,0 +1,8 @@
+<!-- purchase.html -->
+<h1>Confirm Purchase</h1>
+<p>You have selected the {{ package.name }} package for {{ package.price }} KES.</p>
+<form method="POST">
+    <label for="phone_number">Enter your phone number to proceed:</label>
+    <input type="text" name="phone_number" required>
+    <button type="submit">Pay with M-Pesa</button>
+</form>

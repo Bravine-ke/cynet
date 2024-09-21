@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Packages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Admin Page - Manage Packages</h1>
+    </header>
+
+    <section>
+        <h2>Add New Package</h2>
+        <form action="/admin" method="POST">
+            <label for="password">Admin Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="name">Package Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="price">Package Price (KES):</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <label for="duration">Package Duration (minutes):</label>
+            <input type="number" id="duration" name="duration" required>
+
+            <label for="image_url">Package Image URL:</label>
+            <input type="url" id="image_url" name="image_url" required>
+
+            <label for="description">Package Description:</label>
+            <input type="text" id="description" name="description" required>
+
+
+            <input type="hidden" name="action" value="add">
+            <button type="submit">Add Package</button>
+        </form>
+        
+        <h2>Existing Packages</h2>
+        <ul>
+            {% for package in packages %}
+            <li>
+                <form action="/admin" method="POST">
+                    <input type="hidden" name="package_id" value="{{ package.id }}">
+                    <label for="name">Package Name:</label>
+                    <input type="text" name="name" value="{{ package.name }}" required>
+
+                    <label for="price">Package Price (KES):</label>
+                    <input type="number" name="price" value="{{ package.price }}" step="0.01" required>
+
+                    <label for="duration">Package Duration (minutes):</label>
+                    <input type="number" name="duration" value="{{ package.duration }}" required>
+
+                    <label for="image_url">Package Image URL:</label>
+                    <input type="url" name="image_url" value="{{ package.image_url }}" required>
+
+                    <input type="hidden" name="action" value="update">
+                    <button type="submit">Update</button>
+                </form>
+                <form action="/admin" method="POST" style="display:inline;">
+                    <input type="hidden" name="package_id" value="{{ package.id }}">
+                    <input type="hidden" name="action" value="delete">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer>
+        <p>Admin Panel for Managing Packages</p>
+    </footer>
+</body>
+</html>
